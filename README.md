@@ -1,70 +1,76 @@
-# Agentage 3D Graph
+# Agentage Galaxy
 
-See your memory as a 3D, rotating force-graph. Your notes are nodes, your links are
-edges, and a toolbar click flies you through the whole vault in three dimensions.
+> Your vault, in three dimensions.
 
-![Agentage 3D Graph running in Obsidian: a 3D force-graph of the vault with the controls panel open](docs/screenshot.png)
+[![Release](https://img.shields.io/github/v/release/agentage/obsidian-memory-3d?sort=semver&label=release)](https://github.com/agentage/obsidian-memory-3d/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Obsidian](https://img.shields.io/badge/Obsidian-1.0%2B-7c3aed.svg)](https://obsidian.md)
+[![agentage.io](https://img.shields.io/badge/by-agentage.io-e0a234.svg)](https://agentage.io)
 
-It is a 3D take on Obsidian's built-in graph view: the same data model (files, tags,
-attachments, unresolved links) and the same filters (search, tags, attachments, existing
-files only, orphans) and force controls (center, repel, link, distance), rendered with
-[3d-force-graph](https://github.com/vasturiano/3d-force-graph) (three.js), auto-orbit, and
-a large-graph look (near-black background, colorful clusters).
+See your vault as a 3D, rotating force-graph. Notes are nodes, `[[links]]` are edges, and
+folders form colored clusters you can search, filter, and orbit. Click the **brain** ribbon
+icon and fly through your knowledge.
 
-## Use it
+![Agentage Galaxy: a rotating 3D force-graph of an Obsidian vault](docs/demo.gif)
 
-1. Click the **brain** icon in the left ribbon (tooltip: "Open 3D graph"), or run the
-   command **Open 3D graph**.
-2. The graph opens in a new tab and starts rotating. Left-drag to rotate, scroll to zoom
-   toward the cursor, right-drag to pan, click a node to open that note.
-3. Top-right of the view: the **gear** toggles the controls panel (filters, display,
-   forces, rotation); the **center** button resets the camera to fit.
+## Install
 
-## Node colors
+### Community plugins (recommended)
 
-Nodes are auto-colored into clusters by their top-level folder (like the large-graph
-example colors by group). Tags, attachments, and unresolved `[[links]]` each form their
-own colored group. Node size grows gently with the number of links.
+Settings → **Community plugins** → **Browse** → search **"Agentage Galaxy"** → **Install** → **Enable**.
 
-![A vault rendered as a galaxy of colored clusters on a near-black background](docs/galaxy.png)
+### BRAT (beta now)
 
-## agentage Memory
+In [BRAT](https://github.com/TfTHacker/obsidian42-brat): **Add beta plugin** → `agentage/obsidian-memory-3d`.
 
-This plugin visualizes your local Obsidian vault. It is part of **agentage Memory** - a
-shared memory layer for every AI: one set of plain-Markdown notes that Claude, ChatGPT,
+### Manual
+
+Download `main.js`, `manifest.json`, and `styles.css` from the
+[latest release](https://github.com/agentage/obsidian-memory-3d/releases/latest) into
+`<your-vault>/.obsidian/plugins/agentage-galaxy/`, then enable it under Community plugins.
+
+Then click the **brain** icon in the left ribbon (or run the **Open 3D graph** command).
+
+![Open it from the toolbar - the brain ribbon icon](docs/screenshot.png)
+
+## Features
+
+- **Auto-clustered by folder, zero config** - every top-level folder gets its own color, so
+  the structure of your vault pops on first open. Tags, attachments, and unresolved `[[links]]`
+  each form their own colored group. No `path:`/`tag:` rules to hand-write.
+- **Size by connections** - your hub notes are visibly the biggest stars.
+- **It's the built-in graph view, in 3D** - the same node kinds and the same filters (search,
+  tags, attachments, existing-files-only, orphans), so there's nothing new to learn.
+- **Full force controls** - center, repel, link, and link distance, plus node size, link
+  thickness, labels, and arrows, in the gear-toggled panel.
+- **Fly through it** - auto-orbit with speed control; left-drag to rotate, scroll to zoom
+  toward your cursor, right-drag to pan, click a node to open it, center button to reframe.
+- **100% local** - a pure offline visualization of the files you own. Zero network calls.
+
+![A vault rendered as a galaxy of colored, link-sized clusters](docs/galaxy.png)
+
+## Privacy
+
+Agentage Galaxy runs **entirely on your device and makes zero network calls** - a pure,
+offline visualization of the Markdown you already own. (The agentage Memory cloud service
+below is a separate, optional product.)
+
+Desktop only (`isDesktopOnly: true`): it renders with WebGL/three.js.
+
+## Part of agentage Memory
+
+This plugin visualizes your local vault. It's part of **[agentage Memory](https://agentage.io)** -
+a shared memory layer for every AI: one set of plain-Markdown notes that Claude, ChatGPT,
 Cursor, and any MCP client can read and write, mirrored locally as files you own.
 
-> One memory. Every AI. Owned by you.
+> **One memory. Every AI. Owned by you.**
 
-- AI clients connect over the Model Context Protocol at
-  [memory.agentage.io](https://memory.agentage.io) - the MCP endpoint is
-  `https://memory.agentage.io/mcp` (Streamable HTTP + OAuth 2.1).
-- The companion [Agentage Sync](https://github.com/agentage/obsidian-sync) plugin syncs your
-  vault to your private memory; **Agentage 3D Graph** gives you a 3D view of it.
+- Connect any AI over the Model Context Protocol at **[memory.agentage.io](https://memory.agentage.io)**
+  (`https://memory.agentage.io/mcp` - Streamable HTTP + OAuth 2.1).
+- The companion **[Agentage Sync](https://github.com/agentage/obsidian-sync)** plugin keeps
+  your vault in sync with your private memory - this plugin gives you a 3D view of it.
 
-Learn more at [memory.agentage.io](https://memory.agentage.io).
-
-## Develop
-
-```bash
-npm install
-npm run dev            # esbuild watch -> main.js
-npm run build          # production main.js
-npm test               # vitest (pure graph builder + plugin wiring)
-npm run verify         # type-check + test + build
-
-# Standalone browser preview (the real render path, no Obsidian needed):
-npm run build:preview && npm run sample
-npx http-server preview -p 8731   # or: python3 -m http.server 8731 --directory preview
-
-# Install into a vault and enable it:
-npm run install:vault [path/to/vault]   # defaults to ./test-vault
-```
-
-`src/render.ts` and `src/graph-data.ts` are Obsidian-free, so the browser harness in
-`preview/` drives the exact rendering and graph-building code the plugin uses.
-
-Desktop only (`isDesktopOnly: true`): three.js + WebGL.
+→ **Learn more at [agentage.io](https://agentage.io).**
 
 ## Credits
 
@@ -75,4 +81,4 @@ Built on [three.js](https://github.com/mrdoob/three.js),
 
 ## License
 
-MIT - see [LICENSE](LICENSE).
+MIT - see [LICENSE](LICENSE). Made by [agentage](https://agentage.io).

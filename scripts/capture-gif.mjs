@@ -16,8 +16,8 @@ const MEDIA = path.join(ROOT, 'media');
 const TMP = '/tmp/m3d-gif';
 const URL = 'http://localhost:8731/preview/index.html';
 const VAULT = '/home/vreshch/vaults/agentage';
-const N = 80; // frames per full orbit
-const FPS = 10; // 80/10 = 8s per orbit -> gentle
+const N = 160; // frames per full orbit
+const FPS = 10; // 160/10 = 16s per orbit -> gentle, 2x slower (smooth, not choppy)
 const WIDTH = 760;
 
 const check = (id, val) =>

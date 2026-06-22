@@ -16,3 +16,4 @@ media/
 scripts/capture-media.mjs
 scripts/capture-zoom.mjs
 scripts/frame-shell.mjs
+readme-preview.html

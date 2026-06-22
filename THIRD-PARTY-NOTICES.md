@@ -1,6 +1,6 @@
 # Third-party notices
 
-Agentage 3D Graph bundles the following MIT-licensed packages into `main.js`:
+Agentage Galaxy bundles the following MIT-licensed packages into `main.js`:
 
 - **three** - https://github.com/mrdoob/three.js - Copyright (c) 2010-2026 three.js authors
 - **3d-force-graph** - https://github.com/vasturiano/3d-force-graph - Copyright (c) Vasco Asturiano

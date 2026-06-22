@@ -3,7 +3,7 @@ import process from 'process';
 import builtins from 'builtin-modules';
 
 const banner = `/*
-Agentage Memory 3D - Obsidian plugin
+Agentage Galaxy - Obsidian plugin
 This is a generated bundle. Source lives in src/. Do not edit directly.
 */`;
 
