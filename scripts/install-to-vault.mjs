@@ -1,11 +1,11 @@
 // Copies the built plugin (manifest.json + main.js + styles.css) into a vault's
-// .obsidian/plugins/agentage-memory-3d/ and lists it in community-plugins.json so it
+// .obsidian/plugins/agentage-3d-graph/ and lists it in community-plugins.json so it
 // loads once Restricted Mode is off. Run after `npm run build`.
 import { mkdir, copyFile, readFile, writeFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const PLUGIN_ID = 'agentage-memory-3d';
+const PLUGIN_ID = 'agentage-3d-graph';
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const vault = process.argv[2] ? path.resolve(process.argv[2]) : path.join(repo, 'test-vault');
 

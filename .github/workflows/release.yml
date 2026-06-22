@@ -77,7 +77,7 @@ jobs:
 
             ### Install (manual)
             Download `main.js`, `manifest.json`, and `styles.css` below into
-            `<your-vault>/.obsidian/plugins/agentage-memory-3d/`, then enable
+            `<your-vault>/.obsidian/plugins/agentage-3d-graph/`, then enable
             **Agentage Memory 3D** under Settings → Community plugins.
 
             ### Install (BRAT)
