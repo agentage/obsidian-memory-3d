@@ -184,5 +184,15 @@ export const buildControlsPanel = (
       })
   );
 
+  // Footer: funnel to the Agentage Memory product.
+  const footer = panel.createDiv({ cls: 'm3d-footer' });
+  const link = footer.createEl('a', {
+    cls: 'm3d-footer-link',
+    text: 'Powered by Agentage Memory',
+    href: 'https://memory.agentage.io',
+  });
+  link.setAttribute('target', '_blank');
+  link.setAttribute('rel', 'noopener');
+
   return panel;
 };

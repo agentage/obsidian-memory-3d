@@ -1,4 +1,4 @@
-/* Agentage Memory 3D - view + in-graph controls panel. */
+/* Agentage 3D Graph - view + in-graph controls panel. */
 
 .m3d-root {
   padding: 0 !important;
@@ -164,4 +164,23 @@
 
 .m3d-controls .setting-item:has(input[type='range']) input[type='range'] {
   width: 100%;
+}
+
+/* Footer: link out to the Agentage Memory product. */
+.m3d-footer {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--background-modifier-border);
+  text-align: center;
+}
+
+.m3d-footer-link {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.m3d-footer-link:hover {
+  color: var(--text-accent);
+  text-decoration: underline;
 }

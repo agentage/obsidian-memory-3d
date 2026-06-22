@@ -1,7 +1,7 @@
 {
   "name": "obsidian-memory-3d",
   "version": "0.1.0",
-  "description": "See your memory as a 3D, rotating force-graph: notes are nodes, links are edges.",
+  "description": "A 3D, rotating force-graph of your Obsidian vault. Part of Agentage Memory.",
   "private": true,
   "type": "module",
   "main": "main.js",
