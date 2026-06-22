@@ -18,7 +18,7 @@ const URL = 'http://localhost:8731/preview/index.html';
 const VAULT = '/home/vreshch/vaults/agentage';
 const N = 160; // frames per full orbit
 const FPS = 10; // 160/10 = 16s per orbit -> gentle, 2x slower (smooth, not choppy)
-const WIDTH = 760;
+const WIDTH = 1000; // 1000x625 = 1.6 ratio (matches galaxy.png); renders at GitHub content width
 
 const check = (id, val) =>
   `(()=>{const e=document.getElementById('${id}'); if(e&&e.checked!==${val}){e.checked=${val}; e.dispatchEvent(new Event('change',{bubbles:true}));}})()`;
@@ -31,7 +31,7 @@ mkdirSync(TMP, { recursive: true });
 const browser = await chromium.launch({
   args: ['--ignore-gpu-blocklist', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
 });
-const page = await browser.newPage({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
+const page = await browser.newPage({ viewport: { width: 1000, height: 625 }, deviceScaleFactor: 1 });
 await page.goto(`${URL}?t=${Date.now()}`, { waitUntil: 'load' });
 await page.waitForTimeout(10000);
 // Keep the harness DEFAULTS (labels on, orphans on, no tag/attachment toggles). Only turn
