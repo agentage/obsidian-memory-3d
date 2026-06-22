@@ -1,0 +1,167 @@
+/* Agentage Memory 3D - view + in-graph controls panel. */
+
+.m3d-root {
+  padding: 0 !important;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.m3d-host {
+  position: absolute;
+  inset: 0;
+}
+
+.m3d-host canvas {
+  display: block;
+}
+
+/* Gear (toggle panel) + Center (reset view) buttons, stacked top-right. */
+.m3d-settings-btn,
+.m3d-center-btn {
+  position: absolute;
+  right: 10px;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-s);
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow: var(--shadow-s);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.m3d-settings-btn {
+  top: 10px;
+}
+
+.m3d-center-btn {
+  top: 48px;
+}
+
+.m3d-settings-btn:hover,
+.m3d-settings-btn.is-active,
+.m3d-center-btn:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.m3d-settings-btn svg,
+.m3d-center-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Controls overlay - top-right (below the two buttons), shown only when the gear is clicked. */
+.m3d-controls {
+  position: absolute;
+  top: 86px;
+  right: 10px;
+  width: 230px;
+  max-height: calc(100% - 96px);
+  overflow-y: auto;
+  z-index: 10;
+  padding: 6px 10px 10px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-s);
+  font-size: var(--font-ui-small);
+}
+
+.m3d-controls.is-hidden {
+  display: none;
+}
+
+.m3d-section + .m3d-section {
+  margin-top: 4px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.m3d-section-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 2px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--text-muted);
+  font-weight: var(--font-semibold);
+}
+
+.m3d-section-head:hover {
+  color: var(--text-normal);
+}
+
+.m3d-chevron {
+  display: inline-flex;
+  align-items: center;
+}
+
+.m3d-chevron svg {
+  width: 14px;
+  height: 14px;
+}
+
+.m3d-section-title {
+  font-size: var(--font-ui-smaller);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.m3d-section-body.is-collapsed {
+  display: none;
+}
+
+/* Compact the Obsidian Setting rows inside the overlay. */
+.m3d-controls .setting-item {
+  padding: 5px 0;
+  border: none;
+}
+
+.m3d-controls .setting-item-info {
+  margin-right: 8px;
+}
+
+.m3d-controls .setting-item-name {
+  font-size: var(--font-ui-smaller);
+}
+
+.m3d-controls .setting-item-control {
+  flex: 0 0 auto;
+}
+
+.m3d-controls input[type='text'] {
+  width: 100%;
+  font-size: var(--font-ui-smaller);
+}
+
+.m3d-controls .setting-item:has(input[type='text']) {
+  display: block;
+}
+
+.m3d-controls .setting-item:has(input[type='text']) .setting-item-control {
+  margin-top: 4px;
+}
+
+/* Slider rows: stack the label above a full-width slider so names like "Link force"
+   aren't cramped against the control. */
+.m3d-controls .setting-item:has(input[type='range']) {
+  display: block;
+}
+
+.m3d-controls .setting-item:has(input[type='range']) .setting-item-info {
+  margin: 0 0 6px;
+}
+
+.m3d-controls .setting-item:has(input[type='range']) .setting-item-control {
+  justify-content: flex-start;
+}
+
+.m3d-controls .setting-item:has(input[type='range']) input[type='range'] {
+  width: 100%;
+}

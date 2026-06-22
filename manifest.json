@@ -1,0 +1,10 @@
+{
+	"id": "agentage-memory-3d",
+	"name": "Agentage Memory 3D",
+	"version": "0.1.0",
+	"minAppVersion": "1.0.0",
+	"description": "See your memory as a 3D, rotating force-graph: notes are nodes, links are edges. Open it from the toolbar and fly through your vault.",
+	"author": "agentage",
+	"authorUrl": "https://agentage.io",
+	"isDesktopOnly": true
+}

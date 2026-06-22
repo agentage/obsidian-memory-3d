@@ -1,0 +1,57 @@
+{
+  "name": "obsidian-memory-3d",
+  "version": "0.1.0",
+  "description": "See your memory as a 3D, rotating force-graph: notes are nodes, links are edges.",
+  "private": true,
+  "type": "module",
+  "main": "main.js",
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production",
+    "build:preview": "node esbuild.config.mjs preview",
+    "sample": "node scripts/build-sample.mjs",
+    "install:vault": "npm run build && node scripts/install-to-vault.mjs",
+    "type-check": "tsc --noEmit -skipLibCheck",
+    "lint": "eslint src preview/harness.ts",
+    "format": "prettier --write \"src/**/*.ts\" \"preview/harness.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"preview/harness.ts\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf main.js *.map coverage preview/harness.js",
+    "verify": "npm run type-check && npm run lint && npm run format:check && npm run test && npm run build"
+  },
+  "keywords": [
+    "obsidian",
+    "obsidian-plugin",
+    "agentage",
+    "memory",
+    "graph",
+    "3d"
+  ],
+  "author": "agentage",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "^22.0.0",
+    "@types/three": "^0.184.0",
+    "builtin-modules": "^5.0.0",
+    "esbuild": "^0.28.1",
+    "eslint": "10.5.0",
+    "eslint-config-prettier": "10.1.8",
+    "obsidian": "latest",
+    "prettier": "3.8.4",
+    "tslib": "^2.8.1",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "8.62.0",
+    "vitest": "^4.1.7"
+  },
+  "dependencies": {
+    "3d-force-graph": "^1.80.0",
+    "three": "^0.184.0",
+    "three-spritetext": "1.10.0"
+  }
+}
