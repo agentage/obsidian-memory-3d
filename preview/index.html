@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agentage Memory 3D - preview harness</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #000011;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        color: #c8d0e0;
+        overflow: hidden;
+      }
+      #graph {
+        position: absolute;
+        inset: 0;
+      }
+      #settings-btn,
+      #center-btn {
+        position: absolute;
+        right: 12px;
+        z-index: 11;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        color: #c8d0e0;
+        background: rgba(20, 21, 27, 0.9);
+        border: 1px solid #2a2e3f;
+        border-radius: 8px;
+        cursor: pointer;
+        user-select: none;
+      }
+      #settings-btn {
+        top: 12px;
+      }
+      #center-btn {
+        top: 52px;
+      }
+      #settings-btn:hover,
+      #settings-btn.is-active,
+      #center-btn:hover {
+        background: #2a2e3f;
+      }
+      #panel {
+        position: absolute;
+        top: 92px;
+        right: 12px;
+        z-index: 10;
+        width: 210px;
+        padding: 10px 12px;
+        background: rgba(20, 21, 27, 0.9);
+        border: 1px solid #2a2e3f;
+        border-radius: 10px;
+        font-size: 12px;
+        backdrop-filter: blur(4px);
+        display: none;
+      }
+      #panel.open {
+        display: block;
+      }
+      #panel h1 {
+        font-size: 12px;
+        margin: 0 0 8px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #8a91a6;
+      }
+      #panel label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 0;
+        cursor: pointer;
+      }
+      #panel label:has(input[type='range']) {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        margin-top: 4px;
+      }
+      #panel hr {
+        border: none;
+        border-top: 1px solid #2a2e3f;
+        margin: 8px 0;
+      }
+      #panel input[type='text'] {
+        width: 100%;
+        box-sizing: border-box;
+        background: #0f1016;
+        border: 1px solid #2a2e3f;
+        color: #c8d0e0;
+        border-radius: 6px;
+        padding: 4px 6px;
+        margin-bottom: 6px;
+      }
+      #panel input[type='range'] {
+        width: 100%;
+      }
+      #count {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        z-index: 10;
+        font-size: 12px;
+        color: #8a91a6;
+        background: rgba(20, 21, 27, 0.7);
+        padding: 4px 8px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="graph"></div>
+    <div id="count">…</div>
+    <div id="settings-btn" title="Graph settings">⚙</div>
+    <div id="center-btn" title="Center view">◎</div>
+    <div id="panel">
+      <h1>Filters</h1>
+      <input id="f-search" type="text" placeholder="Search notes…" />
+      <label><input id="f-tags" type="checkbox" /> Tags</label>
+      <label><input id="f-attach" type="checkbox" /> Attachments</label>
+      <label><input id="f-existing" type="checkbox" /> Existing files only</label>
+      <label><input id="f-orphans" type="checkbox" checked /> Orphans</label>
+      <hr />
+      <h1>Display</h1>
+      <label><input id="d-labels" type="checkbox" checked /> Labels</label>
+      <label><input id="d-arrows" type="checkbox" /> Arrows</label>
+      <label>Link distance <input id="fo-distance" type="range" min="5" max="200" value="40" /></label>
+      <hr />
+      <h1>Rotation</h1>
+      <label><input id="r-rotate" type="checkbox" checked /> Auto-rotate</label>
+      <label>Speed <input id="r-speed" type="range" min="0" max="6" step="0.1" value="1.2" /></label>
+    </div>
+    <script src="sample-data.js"></script>
+    <script src="harness.js"></script>
+  </body>
+</html>

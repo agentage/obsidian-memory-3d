@@ -1,0 +1,102 @@
+import { createGraphRenderer } from '../src/render';
+import { graphFromMarkdown } from '../src/graph-from-markdown';
+import { DEFAULT_FILTERS, DEFAULT_PALETTE } from '../src/types';
+import type { GraphFilters, RawNote, RenderOptions } from '../src/types';
+
+// Standalone browser harness: drives the EXACT plugin render path (render.ts +
+// graph-data.ts) against sample notes, so we can verify the real 3D output in a
+// plain browser without Obsidian. Sample notes are injected as a global by
+// scripts/build-sample.mjs (preview/sample-data.js).
+const notes: RawNote[] =
+  (window as unknown as { AGENTAGE_3D_SAMPLE?: RawNote[] }).AGENTAGE_3D_SAMPLE ?? [];
+
+const filters: GraphFilters = { ...DEFAULT_FILTERS };
+
+const opts: RenderOptions = {
+  autoRotate: true,
+  rotateSpeed: 1.2,
+  nodeSize: 1.8,
+  linkThickness: 0.6,
+  showArrows: false,
+  showLabels: true,
+  forces: { centerStrength: 0.1, repelStrength: 10, linkStrength: 0.5, linkDistance: 30 },
+  palette: DEFAULT_PALETTE,
+};
+
+const host = document.getElementById('graph');
+if (!host) throw new Error('missing #graph');
+
+const renderer = createGraphRenderer(host, opts);
+const fit = () => renderer.resize(window.innerWidth, window.innerHeight);
+const rebuild = () => {
+  renderer.setData(graphFromMarkdown(notes, filters));
+  const count = graphFromMarkdown(notes, filters).nodes.length;
+  const badge = document.getElementById('count');
+  if (badge) badge.textContent = `${count} nodes`;
+};
+
+rebuild();
+fit();
+window.addEventListener('resize', fit);
+
+// --- wire the controls -----------------------------------------------------------
+const check = (id: string, fn: (v: boolean) => void): void => {
+  const el = document.getElementById(id) as HTMLInputElement | null;
+  el?.addEventListener('change', () => fn(el.checked));
+};
+const range = (id: string, fn: (v: number) => void): void => {
+  const el = document.getElementById(id) as HTMLInputElement | null;
+  el?.addEventListener('input', () => fn(Number(el.value)));
+};
+
+check('f-tags', (v) => {
+  filters.showTags = v;
+  rebuild();
+});
+check('f-attach', (v) => {
+  filters.showAttachments = v;
+  rebuild();
+});
+check('f-existing', (v) => {
+  filters.hideUnresolved = v;
+  rebuild();
+});
+check('f-orphans', (v) => {
+  filters.showOrphans = v;
+  rebuild();
+});
+check('d-labels', (v) => {
+  opts.showLabels = v;
+  renderer.setOptions({ ...opts });
+});
+check('d-arrows', (v) => {
+  opts.showArrows = v;
+  renderer.setOptions({ ...opts });
+});
+check('r-rotate', (v) => {
+  opts.autoRotate = v;
+  renderer.setOptions({ ...opts });
+});
+range('r-speed', (v) => {
+  opts.rotateSpeed = v;
+  renderer.setOptions({ ...opts });
+});
+range('fo-distance', (v) => {
+  opts.forces.linkDistance = v;
+  renderer.setOptions({ ...opts });
+});
+
+const settingsBtn = document.getElementById('settings-btn');
+const panel = document.getElementById('panel');
+settingsBtn?.addEventListener('click', () => {
+  const open = panel?.classList.toggle('open');
+  settingsBtn.classList.toggle('is-active', !!open);
+});
+
+document.getElementById('center-btn')?.addEventListener('click', () => renderer.zoomToFit());
+
+const searchEl = document.getElementById('f-search') as HTMLInputElement | null;
+searchEl?.addEventListener('input', () => {
+  filters.search = searchEl.value;
+  rebuild();
+});

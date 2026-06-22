@@ -1,0 +1,12 @@
+node_modules/
+main.js
+main.js.map
+preview/harness.js
+preview/sample-data.js
+coverage/
+*.log
+.DS_Store
+data.json
+
+# test vault: keep notes, ignore obsidian config + installed build
+test-vault/.obsidian/
