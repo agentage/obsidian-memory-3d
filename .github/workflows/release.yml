@@ -77,7 +77,7 @@ jobs:
 
             ### Install (manual)
             Download `main.js`, `manifest.json`, and `styles.css` below into
-            `<your-vault>/.obsidian/plugins/agentage-graph-3d/`, then enable
+            `<your-vault>/.obsidian/plugins/agentage-galaxy/`, then enable
             **Agentage 3D Graph** under Settings → Community plugins.
 
             ### Install (BRAT)

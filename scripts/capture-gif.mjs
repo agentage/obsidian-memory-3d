@@ -16,9 +16,9 @@ const MEDIA = path.join(ROOT, 'media');
 const TMP = '/tmp/m3d-gif';
 const URL = 'http://localhost:8731/preview/index.html';
 const VAULT = '/home/vreshch/vaults/agentage';
-const N = 72; // frames per full orbit
-const FPS = 12; // 72/12 = 6s per orbit -> gentle, default-like speed (was 2.4s = too fast)
-const WIDTH = 800;
+const N = 80; // frames per full orbit
+const FPS = 10; // 80/10 = 8s per orbit -> gentle
+const WIDTH = 760;
 
 const check = (id, val) =>
   `(()=>{const e=document.getElementById('${id}'); if(e&&e.checked!==${val}){e.checked=${val}; e.dispatchEvent(new Event('change',{bubbles:true}));}})()`;
@@ -34,25 +34,18 @@ const browser = await chromium.launch({
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
 await page.goto(`${URL}?t=${Date.now()}`, { waitUntil: 'load' });
 await page.waitForTimeout(10000);
-await page.evaluate(check('d-labels', false));
-await page.evaluate(check('r-rotate', false)); // manual orbit -> perfect loop
-await page.evaluate(check('f-orphans', true)); // ALL nodes
-await page.evaluate(check('f-tags', true)); // + tags
-await page.evaluate(check('f-attach', true)); // + attachments
-await page.waitForTimeout(8000); // more nodes -> longer settle
+// Keep the harness DEFAULTS (labels on, orphans on, no tag/attachment toggles). Only turn
+// off auto-rotate so we can drive a seamless manual orbit, and hide the harness chrome.
+await page.evaluate(check('r-rotate', false));
+await page.waitForTimeout(1000);
 await page.evaluate(HIDE);
 
-// Fit ALL nodes (incl. orphans/tags/attachments) via the underlying instance (no
-// connected-only filter), then dolly in slightly. The point cloud is ~spherical, so a
-// single fit stays in frame through a full orbit.
-await page.evaluate(() => document.getElementById('graph').__forceGraph.zoomToFit(600, 40));
+// Use the default auto-fit framing (no dolly), then read the camera for the orbit.
+await page.evaluate(() => window.__renderer.zoomToFit(60));
 await page.waitForTimeout(900);
 const cam = await page.evaluate(() => {
-  const G = document.getElementById('graph').__forceGraph;
-  const c = G.cameraPosition();
-  G.cameraPosition({ x: c.x * 0.9, y: c.y * 0.9, z: c.z * 0.9 }, undefined, 0);
-  const n = G.cameraPosition();
-  return { R: Math.hypot(n.x, n.z), y: n.y };
+  const c = document.getElementById('graph').__forceGraph.cameraPosition();
+  return { R: Math.hypot(c.x, c.z), y: c.y };
 });
 console.log('orbit radius', Math.round(cam.R), 'height', Math.round(cam.y));
 
