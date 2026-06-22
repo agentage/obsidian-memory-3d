@@ -100,6 +100,10 @@ export const createGraphRenderer = (
     })
     .onNodeClick((n) => clickCb(n as GraphNode));
 
+  // e2e/debug affordance: expose the underlying instance on the container so headless
+  // capture scripts can drive the camera. Harmless in normal use.
+  (container as { __forceGraph?: ForceGraph3DInstance }).__forceGraph = graph;
+
   // Default framing: fit the connected cluster (lone orphans, flung to the periphery
   // by repulsion, shouldn't shrink the whole view); fall back to all nodes.
   const fitView = (padding = 60): void => {
