@@ -10,3 +10,9 @@ data.json
 
 # test vault: keep notes, ignore obsidian config + installed build
 test-vault/.obsidian/
+
+# local media-capture tooling + generated gallery (committed shots live in docs/)
+media/
+scripts/capture-media.mjs
+scripts/capture-zoom.mjs
+scripts/frame-shell.mjs

@@ -61,7 +61,7 @@ export interface GraphRenderer {
   setData(data: GraphData): void;
   setOptions(opts: RenderOptions): void;
   resize(width: number, height: number): void;
-  zoomToFit(): void;
+  zoomToFit(padding?: number): void;
   onNodeClick(cb: (node: GraphNode) => void): void;
   destroy(): void;
 }
@@ -102,8 +102,8 @@ export const createGraphRenderer = (
 
   // Default framing: fit the connected cluster (lone orphans, flung to the periphery
   // by repulsion, shouldn't shrink the whole view); fall back to all nodes.
-  const fitView = (): void => {
-    graph.zoomToFit(600, 60, (n) =>
+  const fitView = (padding = 60): void => {
+    graph.zoomToFit(600, padding, (n) =>
       hasLinks ? ((n as GraphNode).neighbors?.length ?? 0) > 0 : true
     );
   };
@@ -177,16 +177,18 @@ export const createGraphRenderer = (
     resize(width: number, height: number): void {
       graph.width(width).height(height);
     },
-    zoomToFit(): void {
-      fitView();
+    zoomToFit(padding = 60): void {
+      fitView(padding);
     },
     onNodeClick(cb: (node: GraphNode) => void): void {
       clickCb = cb;
     },
     destroy(): void {
       graph._destructor();
+      // Obsidian provides container.empty(); the browser harness doesn't, so fall back
+      // to a DOM-clearing loop (avoids innerHTML).
       container.empty?.();
-      container.innerHTML = '';
+      while (container.firstChild) container.removeChild(container.firstChild);
     },
   };
 };
