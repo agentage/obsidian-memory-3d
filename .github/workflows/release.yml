@@ -1,0 +1,91 @@
+name: Release
+
+# Two ways in:
+#  1. Push a bare version tag (e.g. `0.1.1`) - the classic release. Obsidian requires
+#     tag == manifest.json version; `.npmrc` sets `tag-version-prefix=` so `npm version`
+#     emits bare tags, and `git push --follow-tags` fires this workflow.
+#  2. workflow_dispatch - builds + releases the CURRENT manifest.json version (creating
+#     the matching tag), with an optional `draft` to verify assets before publishing.
+#
+# Release the standard way (see RELEASING.md):
+#   npm version patch   # bumps package.json + manifest.json + versions.json, makes a tag
+#   git push --follow-tags
+on:
+  push:
+    tags:
+      - '*.*.*'
+  workflow_dispatch:
+    inputs:
+      draft:
+        description: 'Create the GitHub Release as a draft (verify assets before publishing).'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: 📦 Build & publish plugin release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve release version
+        id: ver
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=$(node -p "require('./manifest.json').version")" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify tag matches manifest version
+        run: |
+          TAG="${{ steps.ver.outputs.tag }}"
+          MANIFEST=$(node -p "require('./manifest.json').version")
+          if [ "$TAG" != "$MANIFEST" ]; then
+            echo "::error::Release tag '$TAG' does not match manifest.json version '$MANIFEST'. Obsidian requires they be identical." >&2
+            exit 1
+          fi
+          echo "tag and manifest agree on $TAG"
+
+      - name: Verify (type-check + lint + format + test + build)
+        run: npm run verify
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          name: ${{ steps.ver.outputs.tag }}
+          draft: ${{ github.event.inputs.draft == 'true' }}
+          prerelease: ${{ contains(steps.ver.outputs.tag, '-') }}
+          body: |
+            **Agentage Memory 3D ${{ steps.ver.outputs.tag }}** - see your Obsidian vault as a 3D, rotating force-graph.
+
+            ### Install (manual)
+            Download `main.js`, `manifest.json`, and `styles.css` below into
+            `<your-vault>/.obsidian/plugins/agentage-memory-3d/`, then enable
+            **Agentage Memory 3D** under Settings → Community plugins.
+
+            ### Install (BRAT)
+            Add `agentage/obsidian-memory-3d` in the BRAT plugin.
+
+            See the [README](https://github.com/${{ github.repository }}#readme) for details.
+          files: |
+            main.js
+            manifest.json
+            styles.css
+          fail_on_unmatched_files: true
