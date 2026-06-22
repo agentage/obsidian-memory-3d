@@ -5,8 +5,7 @@ Guidance for Claude Code in this repository.
 ## Project
 
 **Agentage Memory 3D** - an Obsidian plugin that renders the vault as a 3D, rotating
-force-graph. A toolbar (ribbon) click opens an `ItemView` hosting a
-[3d-force-graph](https://github.com/vasturiano/3d-force-graph) (three.js) scene.
+force-graph. A toolbar (ribbon) click opens an `ItemView` hosting the 3D graph.
 
 - **Plugin id:** `agentage-memory-3d` (the install/auto-update key) - **Display name:** `Agentage Memory 3D`
 - It mirrors Obsidian's built-in graph view: same node kinds (file / attachment / tag /

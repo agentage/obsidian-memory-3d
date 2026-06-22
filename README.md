@@ -24,6 +24,22 @@ Nodes are auto-colored into clusters by their top-level folder (like the large-g
 example colors by group). Tags, attachments, and unresolved `[[links]]` each form their
 own colored group. Node size grows gently with the number of links.
 
+## agentage Memory
+
+This plugin visualizes your local Obsidian vault. It is part of **agentage Memory** - a
+shared memory layer for every AI: one set of plain-Markdown notes that Claude, ChatGPT,
+Cursor, and any MCP client can read and write, mirrored locally as files you own.
+
+> One memory. Every AI. Owned by you.
+
+- AI clients connect over the Model Context Protocol at
+  [memory.agentage.io](https://memory.agentage.io) - the MCP endpoint is
+  `https://memory.agentage.io/mcp` (Streamable HTTP + OAuth 2.1).
+- The companion [Agentage Sync](https://github.com/agentage/obsidian-sync) plugin syncs your
+  vault to your private memory; **Agentage Memory 3D** gives you a 3D view of it.
+
+Learn more at [memory.agentage.io](https://memory.agentage.io).
+
 ## Develop
 
 ```bash
