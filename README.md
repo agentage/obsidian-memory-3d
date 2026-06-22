@@ -1,9 +1,9 @@
-# Agentage Memory 3D
+# Agentage 3D Graph
 
 See your memory as a 3D, rotating force-graph. Your notes are nodes, your links are
 edges, and a toolbar click flies you through the whole vault in three dimensions.
 
-![Agentage Memory 3D running in Obsidian: a 3D force-graph of the vault with the controls panel open](docs/screenshot.png)
+![Agentage 3D Graph running in Obsidian: a 3D force-graph of the vault with the controls panel open](docs/screenshot.png)
 
 It is a 3D take on Obsidian's built-in graph view: the same data model (files, tags,
 attachments, unresolved links) and the same filters (search, tags, attachments, existing
@@ -13,7 +13,7 @@ a large-graph look (near-black background, colorful clusters).
 
 ## Use it
 
-1. Click the **brain** icon in the left ribbon (tooltip: "Open Memory 3D"), or run the
+1. Click the **brain** icon in the left ribbon (tooltip: "Open 3D graph"), or run the
    command **Open 3D graph**.
 2. The graph opens in a new tab and starts rotating. Left-drag to rotate, scroll to zoom
    toward the cursor, right-drag to pan, click a node to open that note.
@@ -40,7 +40,7 @@ Cursor, and any MCP client can read and write, mirrored locally as files you own
   [memory.agentage.io](https://memory.agentage.io) - the MCP endpoint is
   `https://memory.agentage.io/mcp` (Streamable HTTP + OAuth 2.1).
 - The companion [Agentage Sync](https://github.com/agentage/obsidian-sync) plugin syncs your
-  vault to your private memory; **Agentage Memory 3D** gives you a 3D view of it.
+  vault to your private memory; **Agentage 3D Graph** gives you a 3D view of it.
 
 Learn more at [memory.agentage.io](https://memory.agentage.io).
 

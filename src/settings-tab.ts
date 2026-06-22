@@ -65,5 +65,19 @@ export class Memory3DSettingTab extends PluginSettingTab {
         save();
       })
     );
+
+    new Setting(containerEl).setName('Agentage Memory').setHeading();
+    new Setting(containerEl)
+      .setName('One memory for every AI, owned by you')
+      .setDesc(
+        'This 3D graph visualizes your local vault. Agentage Memory syncs it to a private ' +
+          'memory that Claude, ChatGPT, Cursor, and any MCP client can read and write.'
+      )
+      .addButton((b) =>
+        b
+          .setButtonText('Learn more')
+          .setCta()
+          .onClick(() => window.open('https://memory.agentage.io'))
+      );
   }
 }

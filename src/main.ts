@@ -3,7 +3,7 @@ import { Memory3DView, VIEW_TYPE_MEMORY_3D, type Memory3DHost } from './graph-vi
 import { Memory3DSettingTab } from './settings-tab';
 import { DEFAULT_SETTINGS, mergeSettings, type Memory3DSettings } from './settings';
 
-// Agentage Memory 3D - opens the vault's note graph as a 3D, rotating force-graph.
+// Agentage 3D Graph - opens the vault's note graph as a 3D, rotating force-graph.
 // Nodes = notes (+ optional tags/attachments/unresolved), edges = links. Mirrors the
 // built-in graph view's data model + filters, rendered in 3D via 3d-force-graph.
 export default class Memory3DPlugin extends Plugin implements Memory3DHost {
@@ -14,7 +14,7 @@ export default class Memory3DPlugin extends Plugin implements Memory3DHost {
 
     this.registerView(VIEW_TYPE_MEMORY_3D, (leaf) => new Memory3DView(leaf, this));
 
-    this.addRibbonIcon('brain', 'Open Memory 3D', () => void this.activateView());
+    this.addRibbonIcon('brain', 'Open 3D graph', () => void this.activateView());
     this.addCommand({
       id: 'open-memory-3d',
       name: 'Open 3D graph',

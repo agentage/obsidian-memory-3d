@@ -83,7 +83,7 @@ describe('Memory3DPlugin onload wiring', () => {
 
     expect(plugin.addRibbonIcon).toHaveBeenCalledWith(
       'brain',
-      'Open Memory 3D',
+      'Open 3D graph',
       expect.any(Function)
     );
     expect(plugin.registerView).toHaveBeenCalledWith(VIEW_TYPE_MEMORY_3D, expect.any(Function));

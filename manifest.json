@@ -1,9 +1,9 @@
 {
-	"id": "agentage-3d-graph",
-	"name": "Agentage Memory 3D",
+	"id": "agentage-graph-3d",
+	"name": "Agentage 3D Graph",
 	"version": "0.1.0",
 	"minAppVersion": "1.0.0",
-	"description": "See your memory as a 3D, rotating force-graph: notes are nodes, links are edges. Open it from the toolbar and fly through your vault.",
+	"description": "A 3D, rotating force-graph of your vault: notes are nodes, links are edges. Fly through your knowledge graph from the toolbar. Part of Agentage Memory, the shared memory for every AI.",
 	"author": "agentage",
 	"authorUrl": "https://agentage.io",
 	"isDesktopOnly": true

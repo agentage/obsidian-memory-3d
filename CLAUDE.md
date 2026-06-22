@@ -4,10 +4,10 @@ Guidance for Claude Code in this repository.
 
 ## Project
 
-**Agentage Memory 3D** - an Obsidian plugin that renders the vault as a 3D, rotating
+**Agentage 3D Graph** - an Obsidian plugin that renders the vault as a 3D, rotating
 force-graph. A toolbar (ribbon) click opens an `ItemView` hosting the 3D graph.
 
-- **Plugin id:** `agentage-3d-graph` (the install/auto-update key) - **Display name:** `Agentage Memory 3D`
+- **Plugin id:** `agentage-graph-3d` (the install/auto-update key) - **Display name:** `Agentage 3D Graph`
 - It mirrors Obsidian's built-in graph view: same node kinds (file / attachment / tag /
   unresolved), same filters (search, tags, attachments, existing-files-only, orphans),
   same force knobs (center / repel / link / distance), in 3D with auto-orbit.
@@ -32,7 +32,7 @@ force-graph. A toolbar (ribbon) click opens an `ItemView` hosting the 3D graph.
     Forces/Rotation, Obsidian `Setting` rows) + a Center button that resets the view.
   - `settings.ts` + `settings-tab.ts` - persisted defaults (filters mirror the built-in;
     forces use 3D-appropriate defaults).
-  - `main.ts` - the `Plugin`: `registerView`, ribbon icon (`brain`, "Open Memory 3D"),
+  - `main.ts` - the `Plugin`: `registerView`, ribbon icon (`brain`, "Open 3D graph"),
     command, settings tab, `activateView`.
 
 ## Key facts / gotchas

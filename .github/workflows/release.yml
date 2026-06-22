@@ -73,12 +73,12 @@ jobs:
           draft: ${{ github.event.inputs.draft == 'true' }}
           prerelease: ${{ contains(steps.ver.outputs.tag, '-') }}
           body: |
-            **Agentage Memory 3D ${{ steps.ver.outputs.tag }}** - see your Obsidian vault as a 3D, rotating force-graph.
+            **Agentage 3D Graph ${{ steps.ver.outputs.tag }}** - see your Obsidian vault as a 3D, rotating force-graph.
 
             ### Install (manual)
             Download `main.js`, `manifest.json`, and `styles.css` below into
-            `<your-vault>/.obsidian/plugins/agentage-3d-graph/`, then enable
-            **Agentage Memory 3D** under Settings → Community plugins.
+            `<your-vault>/.obsidian/plugins/agentage-graph-3d/`, then enable
+            **Agentage 3D Graph** under Settings → Community plugins.
 
             ### Install (BRAT)
             Add `agentage/obsidian-memory-3d` in the BRAT plugin.
