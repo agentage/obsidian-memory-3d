@@ -27,6 +27,8 @@ const host = document.getElementById('graph');
 if (!host) throw new Error('missing #graph');
 
 const renderer = createGraphRenderer(host, opts);
+// expose for the headless capture scripts (harness-only; not in the plugin bundle)
+(window as unknown as { __renderer?: typeof renderer }).__renderer = renderer;
 const fit = () => renderer.resize(window.innerWidth, window.innerHeight);
 const rebuild = () => {
   renderer.setData(graphFromMarkdown(notes, filters));

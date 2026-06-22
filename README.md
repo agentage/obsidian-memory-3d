@@ -3,6 +3,8 @@
 See your memory as a 3D, rotating force-graph. Your notes are nodes, your links are
 edges, and a toolbar click flies you through the whole vault in three dimensions.
 
+![Agentage Memory 3D running in Obsidian: a 3D force-graph of the vault with the controls panel open](docs/screenshot.png)
+
 It is a 3D take on Obsidian's built-in graph view: the same data model (files, tags,
 attachments, unresolved links) and the same filters (search, tags, attachments, existing
 files only, orphans) and force controls (center, repel, link, distance), rendered with
@@ -23,6 +25,8 @@ a large-graph look (near-black background, colorful clusters).
 Nodes are auto-colored into clusters by their top-level folder (like the large-graph
 example colors by group). Tags, attachments, and unresolved `[[links]]` each form their
 own colored group. Node size grows gently with the number of links.
+
+![A vault rendered as a galaxy of colored clusters on a near-black background](docs/galaxy.png)
 
 ## agentage Memory
 
