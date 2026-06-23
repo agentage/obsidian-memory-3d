@@ -81,7 +81,7 @@ jobs:
             **Agentage Galaxy** under Settings → Community plugins.
 
             ### Install (BRAT)
-            Add `agentage/obsidian-memory-3d` in the BRAT plugin.
+            Add `agentage/obsidian-galaxy` in the BRAT plugin.
 
             See the [README](https://github.com/${{ github.repository }}#readme) for details.
           files: |

@@ -2,7 +2,7 @@
 
 > Your vault, in three dimensions.
 
-[![Release](https://img.shields.io/github/v/release/agentage/obsidian-memory-3d?sort=semver&label=release)](https://github.com/agentage/obsidian-memory-3d/releases/latest)
+[![Release](https://img.shields.io/github/v/release/agentage/obsidian-galaxy?sort=semver&label=release)](https://github.com/agentage/obsidian-galaxy/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Obsidian](https://img.shields.io/badge/Obsidian-1.0%2B-7c3aed.svg)](https://obsidian.md)
 [![agentage.io](https://img.shields.io/badge/by-agentage.io-e0a234.svg)](https://agentage.io)
@@ -21,12 +21,12 @@ Settings → **Community plugins** → **Browse** → search **"Agentage Galaxy"
 
 ### BRAT (beta now)
 
-In [BRAT](https://github.com/TfTHacker/obsidian42-brat): **Add beta plugin** → `agentage/obsidian-memory-3d`.
+In [BRAT](https://github.com/TfTHacker/obsidian42-brat): **Add beta plugin** → `agentage/obsidian-galaxy`.
 
 ### Manual
 
 Download `main.js`, `manifest.json`, and `styles.css` from the
-[latest release](https://github.com/agentage/obsidian-memory-3d/releases/latest) into
+[latest release](https://github.com/agentage/obsidian-galaxy/releases/latest) into
 `<your-vault>/.obsidian/plugins/agentage-galaxy/`, then enable it under Community plugins.
 
 Then click the **brain** icon in the left ribbon (or run the **Open 3D graph** command).
