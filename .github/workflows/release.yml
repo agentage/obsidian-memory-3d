@@ -23,6 +23,8 @@ on:
 
 permissions:
   contents: write
+  id-token: write # provenance attestation (OIDC)
+  attestations: write
 
 jobs:
   release:
@@ -64,6 +66,14 @@ jobs:
 
       - name: Verify (type-check + lint + format + test + build)
         run: npm run verify
+
+      - name: Attest build provenance of release assets
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            main.js
+            manifest.json
+            styles.css
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3

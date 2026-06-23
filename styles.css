@@ -1,7 +1,7 @@
 /* Agentage Galaxy - view + in-graph controls panel. */
 
-.m3d-root {
-  padding: 0 !important;
+.view-content.m3d-root {
+  padding: 0;
   position: relative;
   overflow: hidden;
   height: 100%;
@@ -140,29 +140,29 @@
   font-size: var(--font-ui-smaller);
 }
 
-.m3d-controls .setting-item:has(input[type='text']) {
+.m3d-controls .m3d-row-text {
   display: block;
 }
 
-.m3d-controls .setting-item:has(input[type='text']) .setting-item-control {
+.m3d-controls .m3d-row-text .setting-item-control {
   margin-top: 4px;
 }
 
 /* Slider rows: stack the label above a full-width slider so names like "Link force"
    aren't cramped against the control. */
-.m3d-controls .setting-item:has(input[type='range']) {
+.m3d-controls .m3d-row-slider {
   display: block;
 }
 
-.m3d-controls .setting-item:has(input[type='range']) .setting-item-info {
+.m3d-controls .m3d-row-slider .setting-item-info {
   margin: 0 0 6px;
 }
 
-.m3d-controls .setting-item:has(input[type='range']) .setting-item-control {
+.m3d-controls .m3d-row-slider .setting-item-control {
   justify-content: flex-start;
 }
 
-.m3d-controls .setting-item:has(input[type='range']) input[type='range'] {
+.m3d-controls .m3d-row-slider input[type='range'] {
   width: 100%;
 }
 
