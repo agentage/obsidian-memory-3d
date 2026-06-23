@@ -53,15 +53,18 @@ export const buildControlsPanel = (
 
   // --- Filters (mirrors the built-in graph view) ---
   const filters = section(panel, 'Filters', true);
-  new Setting(filters).setName('Search').addText((t) =>
-    t
-      .setPlaceholder('Filter notes…')
-      .setValue(settings.filters.search)
-      .onChange((v) => {
-        settings.filters.search = v;
-        cb.onFilters();
-      })
-  );
+  new Setting(filters)
+    .setName('Search')
+    .setClass('m3d-row-text')
+    .addText((t) =>
+      t
+        .setPlaceholder('Filter notes…')
+        .setValue(settings.filters.search)
+        .onChange((v) => {
+          settings.filters.search = v;
+          cb.onFilters();
+        })
+    );
   new Setting(filters).setName('Tags').addToggle((t) =>
     t.setValue(settings.filters.showTags).onChange((v) => {
       settings.filters.showTags = v;
@@ -101,69 +104,81 @@ export const buildControlsPanel = (
       cb.onDisplay();
     })
   );
-  new Setting(display).setName('Node size').addSlider((s) =>
-    s
-      .setLimits(1, 12, 0.5)
-      .setValue(settings.nodeSize)
-      .setDynamicTooltip()
-      .onChange((v) => {
-        settings.nodeSize = v;
-        cb.onDisplay();
-      })
-  );
-  new Setting(display).setName('Link thickness').addSlider((s) =>
-    s
-      .setLimits(0, 4, 0.1)
-      .setValue(settings.linkThickness)
-      .setDynamicTooltip()
-      .onChange((v) => {
-        settings.linkThickness = v;
-        cb.onDisplay();
-      })
-  );
+  new Setting(display)
+    .setName('Node size')
+    .setClass('m3d-row-slider')
+    .addSlider((s) =>
+      s
+        .setLimits(1, 12, 0.5)
+        .setValue(settings.nodeSize)
+        .onChange((v) => {
+          settings.nodeSize = v;
+          cb.onDisplay();
+        })
+    );
+  new Setting(display)
+    .setName('Link thickness')
+    .setClass('m3d-row-slider')
+    .addSlider((s) =>
+      s
+        .setLimits(0, 4, 0.1)
+        .setValue(settings.linkThickness)
+        .onChange((v) => {
+          settings.linkThickness = v;
+          cb.onDisplay();
+        })
+    );
 
   // --- Forces (mirrors the built-in graph view) ---
   const forces = section(panel, 'Forces', false);
-  new Setting(forces).setName('Center force').addSlider((s) =>
-    s
-      .setLimits(0, 1, 0.01)
-      .setValue(settings.forces.centerStrength)
-      .setDynamicTooltip()
-      .onChange((v) => {
-        settings.forces.centerStrength = v;
-        cb.onDisplay();
-      })
-  );
-  new Setting(forces).setName('Repel force').addSlider((s) =>
-    s
-      .setLimits(0, 40, 1)
-      .setValue(settings.forces.repelStrength)
-      .setDynamicTooltip()
-      .onChange((v) => {
-        settings.forces.repelStrength = v;
-        cb.onDisplay();
-      })
-  );
-  new Setting(forces).setName('Link force').addSlider((s) =>
-    s
-      .setLimits(0, 2, 0.05)
-      .setValue(settings.forces.linkStrength)
-      .setDynamicTooltip()
-      .onChange((v) => {
-        settings.forces.linkStrength = v;
-        cb.onDisplay();
-      })
-  );
-  new Setting(forces).setName('Link distance').addSlider((s) =>
-    s
-      .setLimits(5, 200, 1)
-      .setValue(settings.forces.linkDistance)
-      .setDynamicTooltip()
-      .onChange((v) => {
-        settings.forces.linkDistance = v;
-        cb.onDisplay();
-      })
-  );
+  new Setting(forces)
+    .setName('Center force')
+    .setClass('m3d-row-slider')
+    .addSlider((s) =>
+      s
+        .setLimits(0, 1, 0.01)
+        .setValue(settings.forces.centerStrength)
+        .onChange((v) => {
+          settings.forces.centerStrength = v;
+          cb.onDisplay();
+        })
+    );
+  new Setting(forces)
+    .setName('Repel force')
+    .setClass('m3d-row-slider')
+    .addSlider((s) =>
+      s
+        .setLimits(0, 40, 1)
+        .setValue(settings.forces.repelStrength)
+        .onChange((v) => {
+          settings.forces.repelStrength = v;
+          cb.onDisplay();
+        })
+    );
+  new Setting(forces)
+    .setName('Link force')
+    .setClass('m3d-row-slider')
+    .addSlider((s) =>
+      s
+        .setLimits(0, 2, 0.05)
+        .setValue(settings.forces.linkStrength)
+        .onChange((v) => {
+          settings.forces.linkStrength = v;
+          cb.onDisplay();
+        })
+    );
+  new Setting(forces)
+    .setName('Link distance')
+    .setClass('m3d-row-slider')
+    .addSlider((s) =>
+      s
+        .setLimits(5, 200, 1)
+        .setValue(settings.forces.linkDistance)
+        .onChange((v) => {
+          settings.forces.linkDistance = v;
+          cb.onDisplay();
+        })
+    );
 
   // --- Rotation (3D-specific) ---
   const rotation = section(panel, 'Rotation', false);
@@ -173,16 +188,18 @@ export const buildControlsPanel = (
       cb.onDisplay();
     })
   );
-  new Setting(rotation).setName('Speed').addSlider((s) =>
-    s
-      .setLimits(0, 6, 0.1)
-      .setValue(settings.rotateSpeed)
-      .setDynamicTooltip()
-      .onChange((v) => {
-        settings.rotateSpeed = v;
-        cb.onDisplay();
-      })
-  );
+  new Setting(rotation)
+    .setName('Speed')
+    .setClass('m3d-row-slider')
+    .addSlider((s) =>
+      s
+        .setLimits(0, 6, 0.1)
+        .setValue(settings.rotateSpeed)
+        .onChange((v) => {
+          settings.rotateSpeed = v;
+          cb.onDisplay();
+        })
+    );
 
   // Footer: funnel to the Agentage Memory product.
   const footer = panel.createDiv({ cls: 'm3d-footer' });
