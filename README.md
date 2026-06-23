@@ -2,9 +2,10 @@
 
 > Your vault, in three dimensions.
 
+[![Install in Obsidian](https://img.shields.io/badge/Install-Obsidian-7c3aed.svg?logo=obsidian&logoColor=white)](obsidian://show-plugin?id=agentage-galaxy)
 [![Release](https://img.shields.io/github/v/release/agentage/obsidian-galaxy?sort=semver&label=release)](https://github.com/agentage/obsidian-galaxy/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![Obsidian](https://img.shields.io/badge/Obsidian-1.0%2B-7c3aed.svg)](https://obsidian.md)
+[![Obsidian](https://img.shields.io/badge/Obsidian-1.7.2%2B-7c3aed.svg)](https://obsidian.md)
 [![agentage.io](https://img.shields.io/badge/by-agentage.io-e0a234.svg)](https://agentage.io)
 
 See your vault as a 3D, rotating force-graph. Notes are nodes, `[[links]]` are edges, and
@@ -17,7 +18,9 @@ icon and fly through your knowledge.
 
 ### Community plugins (recommended)
 
-Settings → **Community plugins** → **Browse** → search **"Agentage Galaxy"** → **Install** → **Enable**.
+**[→ Open in Obsidian](obsidian://show-plugin?id=agentage-galaxy)** — one-click, opens the plugin page in your Obsidian app (or copy `obsidian://show-plugin?id=agentage-galaxy`).
+
+Or from inside the app: Settings → **Community plugins** → **Browse** → search **"Agentage Galaxy"** → **Install** → **Enable**.
 
 ### BRAT (beta now)
 
