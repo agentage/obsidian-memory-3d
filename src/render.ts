@@ -16,8 +16,25 @@ interface D3Force {
 
 const REPEL_SCALE = 5; // built-in "repel" slider -> d3 charge strength
 const REPEL_MAX_RANGE = 300; // cap charge range so orphans don't fly off to infinity
-const NODE_RESOLUTION = 18; // sphere segments (default 8) -> smooth balls
+const NODE_RESOLUTION = 18; // max sphere segments (smooth balls for small graphs)
+const NODE_RESOLUTION_MIN = 4; // floor for huge clouds / far zoom (still reads as round)
 const LINK_OPACITY = 0.5; // base link visibility
+
+// Adaptive level-of-detail: every node is a UV sphere whose triangle count scales with
+// its segment resolution, so a big cloud at 18 segments is millions of polygons. Pick a
+// resolution from graph size (a few hundred nodes can afford smooth balls; thousands
+// cannot) and the camera distance (far-away balls are a few pixels -> no detail needed).
+// Returns a bucketed value so we only rebuild geometry when crossing a threshold.
+const adaptiveResolution = (count: number, distance: number): number => {
+  let base: number;
+  if (count <= 250) base = NODE_RESOLUTION;
+  else if (count <= 1000) base = 12;
+  else if (count <= 3000) base = 8;
+  else base = 6;
+  if (distance > 1600) base -= 4;
+  else if (distance > 800) base -= 2;
+  return Math.max(NODE_RESOLUTION_MIN, base);
+};
 
 const colorForKind = (node: GraphNode, opts: RenderOptions): string => {
   switch (node.kind) {
@@ -74,6 +91,10 @@ export const createGraphRenderer = (
   let clickCb: (node: GraphNode) => void = () => {};
   let fitted = false; // frame the camera once per data load, then leave it to the user
   let hasLinks = false; // fit to connected nodes when any exist, else to everything
+  let nodeCount = 0; // current graph size, drives the LOD floor
+  let currentRes = NODE_RESOLUTION; // last applied sphere resolution (avoid needless rebuilds)
+  let resScheduled = false; // throttle LOD recompute to one per frame
+  let destroyed = false; // guard queued frames after teardown
 
   const nodeColorFn = (n: object): string =>
     (n as GraphNode & { __color?: string }).__color ?? colorForKind(n as GraphNode, opts);
@@ -103,6 +124,36 @@ export const createGraphRenderer = (
   // e2e/debug affordance: expose the underlying instance on the container so headless
   // capture scripts can drive the camera. Harmless in normal use.
   (container as { __forceGraph?: ForceGraph3DInstance }).__forceGraph = graph;
+
+  // Recompute the adaptive sphere resolution from the current size + camera distance and
+  // only rebuild geometry when the bucket actually changes.
+  const updateResolution = (): void => {
+    const cam = graph.camera() as { position: { x: number; y: number; z: number } };
+    const target = (graph.controls() as { target?: { x: number; y: number; z: number } }).target;
+    const tx = target?.x ?? 0;
+    const ty = target?.y ?? 0;
+    const tz = target?.z ?? 0;
+    const distance = Math.hypot(cam.position.x - tx, cam.position.y - ty, cam.position.z - tz);
+    const res = adaptiveResolution(nodeCount, distance);
+    if (res !== currentRes) {
+      currentRes = res;
+      graph.nodeResolution(res);
+    }
+  };
+
+  // OrbitControls fires 'change' on every wheel/drag/auto-rotate frame; coalesce to one
+  // recompute per animation frame so we never thrash the bucket math.
+  const scheduleResolution = (): void => {
+    if (resScheduled) return;
+    resScheduled = true;
+    requestAnimationFrame(() => {
+      resScheduled = false;
+      if (!destroyed) updateResolution();
+    });
+  };
+  (
+    graph.controls() as { addEventListener?: (e: string, cb: () => void) => void }
+  ).addEventListener?.('change', scheduleResolution);
 
   // Default framing: fit the connected cluster (lone orphans, flung to the periphery
   // by repulsion, shouldn't shrink the whole view); fall back to all nodes.
@@ -154,6 +205,7 @@ export const createGraphRenderer = (
     setData(data: GraphData): void {
       fitted = false; // re-frame once after the new layout settles
       hasLinks = data.links.length > 0;
+      nodeCount = data.nodes.length; // drives the LOD floor for big clouds
       // Assign a categorical color per group (folder / kind), like the large-graph
       // example's nodeAutoColorBy. Stable across renders via sorted group order.
       const groups = [...new Set(data.nodes.map(groupOf))].sort();
@@ -163,6 +215,7 @@ export const createGraphRenderer = (
         (node as GraphNode & { __color?: string }).__color = colorByGroup.get(groupOf(node));
       }
       graph.graphData({ nodes: data.nodes, links: data.links });
+      updateResolution(); // size changed -> reset detail before the layout settles
     },
     setOptions(next: RenderOptions): void {
       opts = next;
@@ -188,6 +241,7 @@ export const createGraphRenderer = (
       clickCb = cb;
     },
     destroy(): void {
+      destroyed = true;
       graph._destructor();
       // Obsidian provides container.empty(); the browser harness doesn't, so fall back
       // to a DOM-clearing loop (avoids innerHTML).
