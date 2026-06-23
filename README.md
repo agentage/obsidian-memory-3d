@@ -22,10 +22,6 @@ icon and fly through your knowledge.
 
 Or from inside the app: Settings → **Community plugins** → **Browse** → search **"Agentage Galaxy"** → **Install** → **Enable**.
 
-### BRAT (beta now)
-
-In [BRAT](https://github.com/TfTHacker/obsidian42-brat): **Add beta plugin** → `agentage/obsidian-galaxy`.
-
 ### Manual
 
 Download `main.js`, `manifest.json`, and `styles.css` from the
