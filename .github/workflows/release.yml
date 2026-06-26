@@ -68,7 +68,7 @@ jobs:
         run: npm run verify
 
       - name: Attest build provenance of release assets
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: |
             main.js
