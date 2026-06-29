@@ -18,7 +18,7 @@ icon and fly through your knowledge.
 
 ### Community plugins (recommended)
 
-**[→ Open in Obsidian](obsidian://show-plugin?id=agentage-galaxy)** — one-click, opens the plugin page in your Obsidian app (or copy `obsidian://show-plugin?id=agentage-galaxy`).
+**[→ Open in Obsidian](obsidian://show-plugin?id=agentage-galaxy)** - one-click, opens the plugin page in your Obsidian app (or copy `obsidian://show-plugin?id=agentage-galaxy`).
 
 Or from inside the app: Settings → **Community plugins** → **Browse** → search **"Agentage Galaxy"** → **Install** → **Enable**.
 
